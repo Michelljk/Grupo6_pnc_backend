@@ -1,15 +1,25 @@
 spring:
   application:
     name: torneos
+  profiles:
+    active: local
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://dpg-d8et8jho3t8c73fr92ng-a.oregon-postgres.render.com:5432/torneos_db_jdnq
+    username: torneos_db_jdnq_user
+    password: bEpj9KUxxwAXOF9WuJxtZ032n4561GwF
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
+    open-in-view: false
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+stripe:
+  api-key: ${STRIPE_API_KEY}
+  webhook-secret: ${STRIPE_WEBHOOK_SECRET:whsec_placeholder}
+
+server:
+  port: 8080
