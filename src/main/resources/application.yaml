@@ -1,6 +1,8 @@
 spring:
   application:
     name: torneos
+  profiles:
+    active: local
   datasource:
     url: jdbc:postgresql://dpg-d8et8jho3t8c73fr92ng-a.oregon-postgres.render.com:5432/torneos_db_jdnq
     username: torneos_db_jdnq_user
@@ -16,7 +18,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 stripe:
-  api-key: ${STRIPE_API_KEY:sk_test_placeholder}
+  api-key: ${STRIPE_API_KEY}
   webhook-secret: ${STRIPE_WEBHOOK_SECRET:whsec_placeholder}
 
 server:
