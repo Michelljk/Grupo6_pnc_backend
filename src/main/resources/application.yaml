@@ -21,7 +21,7 @@
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 stripe:
-  api-key: sk_test_51TlADyFXG1Xz5c0o0YqeQzFP24OGmTFtSgL7iCIr1iolgnodaj9YdKT8Gn4J8eyyKF38TkUYsTL6ldapGoJeJZOu00h4o9FiX7
+  api-key: ${STRIPE_API_KEY}
   webhook-secret: ${STRIPE_WEBHOOK_SECRET:whsec_placeholder}
 
 server:
