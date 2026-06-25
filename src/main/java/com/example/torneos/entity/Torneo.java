@@ -6,9 +6,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "torneos")
@@ -34,6 +34,12 @@ public class Torneo {
     @Column(name = "max_participantes")
     private Integer maxParticipantes;
 
+    @Column(name = "elo_minimo")
+    private Integer eloMinimo;
+
+    @Column(name = "elo_maximo")
+    private Integer eloMaximo;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoTorneo estado;
@@ -53,10 +59,20 @@ public class Torneo {
     @Column(name = "creado_en")
     private LocalDateTime creadoEn;
 
+    @ManyToMany
+    @JoinTable(
+            name = "torneo_participantes",
+            joinColumns = @JoinColumn(name = "torneo_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
+    private List<Usuario> participantes;
+
     @PrePersist
     protected void onCreate() {
         creadoEn = LocalDateTime.now();
         if (estado == null) estado = EstadoTorneo.PROXIMO;
         if (esPremium == null) esPremium = false;
+        if (eloMinimo == null) eloMinimo = 0;
+        if (eloMaximo == null) eloMaximo = 3000;
     }
 }
