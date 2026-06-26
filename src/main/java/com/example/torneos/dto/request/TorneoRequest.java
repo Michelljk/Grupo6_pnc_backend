@@ -1,5 +1,4 @@
-package com.example.torneos.dto;
-
+package com.example.torneos.dto.request;
 import com.example.torneos.enums.FormatoTorneo;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +10,6 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 public class TorneoRequest {
-
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
 

@@ -1,4 +1,4 @@
-package com.example.torneos.dto;
+package com.example.torneos.dto.request;
 
 import com.example.torneos.enums.ConceptoPago;
 import jakarta.validation.constraints.DecimalMin;

@@ -1,4 +1,4 @@
-package com.example.torneos.dto;
+package com.example.torneos.dto.response;
 
 import com.example.torneos.enums.ConceptoPago;
 import com.example.torneos.enums.EstadoPago;
