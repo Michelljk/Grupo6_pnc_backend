@@ -1,6 +1,6 @@
 package com.example.torneos.controller;
 
-import com.example.torneos.dto.TorneoRequest;
+import com.example.torneos.dto.request.AsignarGanadorRequest;
 import com.example.torneos.entity.Torneo;
 import com.example.torneos.service.TorneoService;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ public class TorneoController {
     }
 
     @PostMapping
-    public ResponseEntity<Torneo> crearTorneo(@Valid @RequestBody TorneoRequest request) {
+    public ResponseEntity<Torneo> crearTorneo(@Valid @RequestBody AsignarGanadorRequest.TorneoRequest request) {
         return ResponseEntity.ok(torneoService.crearTorneo(request));
     }
 

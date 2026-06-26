@@ -1,6 +1,6 @@
 package com.example.torneos.service;
 
-import com.example.torneos.dto.TorneoRequest;
+import com.example.torneos.dto.request.AsignarGanadorRequest;
 import com.example.torneos.entity.Torneo;
 import com.example.torneos.entity.Usuario;
 import com.example.torneos.enums.FormatoTorneo;
@@ -9,7 +9,7 @@ import com.example.torneos.repository.UsuarioRepository;
 import com.example.torneos.service.strategy.FormatoStrategy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
+
 import java.util.Map;
 
 @Service
@@ -28,7 +28,7 @@ public class TorneoService {
     }
 
     @Transactional
-    public Torneo crearTorneo(TorneoRequest dto) {
+    public Torneo crearTorneo(AsignarGanadorRequest.TorneoRequest dto) {
         if (dto.getEloMinimo() > dto.getEloMaximo()) {
             throw new IllegalArgumentException("El ELO mínimo no puede ser mayor que el ELO máximo");
         }

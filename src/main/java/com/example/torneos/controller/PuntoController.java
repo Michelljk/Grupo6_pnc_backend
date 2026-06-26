@@ -1,7 +1,7 @@
 package com.example.torneos.controller;
 
-import com.example.torneos.dto.PuntoJugadorDTO;
-import com.example.torneos.dto.RankingDTO;
+import com.example.torneos.dto.request.PuntoJugadorDTO;
+import com.example.torneos.dto.request.RankingDTO;
 import com.example.torneos.service.PuntoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

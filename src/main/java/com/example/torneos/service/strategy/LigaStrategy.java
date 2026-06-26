@@ -1,15 +1,23 @@
 package com.example.torneos.service.strategy;
-
+import com.example.torneos.entity.*;
 import org.springframework.stereotype.Component;
-import com.example.torneos.entity.Torneo;
+import java.util.List;
 
 @Component
 public class LigaStrategy implements FormatoStrategy {
-
     @Override
     public void validarConfiguracion(Torneo torneo) {
-        if (torneo.getMaxParticipantes() < 3) {
-            throw new IllegalArgumentException("El formato de liga requiere un mínimo de 3 participantes");
-        }
+        // TODO: Implementar validación específica
+    }
+
+    @Override
+    public Bracket generarBracketInicial(Torneo torneo, List<Usuario> participantes) {
+        // TODO: Implementar generación inicial
+        return null;
+    }
+
+    @Override
+    public void avanzarRonda(Bracket bracket) {
+        // TODO: Implementar lógica de avance
     }
 }

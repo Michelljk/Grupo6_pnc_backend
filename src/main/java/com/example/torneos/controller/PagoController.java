@@ -1,8 +1,8 @@
 package com.example.torneos.controller;
 
-import com.example.torneos.dto.ComprarCreditosRequest;
-import com.example.torneos.dto.CrearPagoRequest;
-import com.example.torneos.dto.PagoResponse;
+import com.example.torneos.dto.request.ComprarCreditosRequest;
+import com.example.torneos.dto.request.CrearPagoRequest;
+import com.example.torneos.dto.response.PagoResponse;
 import com.example.torneos.entity.WebhookStripe;
 import com.example.torneos.repository.WebhookStripeRepository;
 import com.example.torneos.service.PagoService;

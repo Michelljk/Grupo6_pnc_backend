@@ -20,8 +20,8 @@ public class EstrategiaFormatoConfig {
             SuizoStrategy suizo) {
 
         Map<FormatoTorneo, FormatoStrategy> strategies = new HashMap<>();
-        strategies.put(FormatoTorneo.ELIMINATORIA_SIMPLE, simple);
-        strategies.put(FormatoTorneo.ELIMINATORIA_DOBLE, doble);
+        strategies.put(FormatoTorneo.ELIMINACION_SIMPLE, simple);
+        strategies.put(FormatoTorneo.ELIMINACION_DOBLE, doble);
         strategies.put(FormatoTorneo.LIGA, liga);
         strategies.put(FormatoTorneo.ROUND_ROBIN, roundRobin);
         strategies.put(FormatoTorneo.SUIZO, suizo);

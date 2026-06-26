@@ -65,7 +65,7 @@ public class Torneo {
             joinColumns = @JoinColumn(name = "torneo_id"),
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
-    private List<Usuario> participantes;
+    private List<Usuario> participantes = new java.util.ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

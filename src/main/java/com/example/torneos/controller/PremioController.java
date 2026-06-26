@@ -1,8 +1,8 @@
 package com.example.torneos.controller;
 
-import com.example.torneos.dto.AsignarGanadorRequest;
-import com.example.torneos.dto.PremioDTO;
-import com.example.torneos.dto.PremioTorneoDTO;
+import com.example.torneos.dto.request.AsignarGanadorRequest;
+import com.example.torneos.dto.request.PremioDTO;
+import com.example.torneos.dto.request.PremioTorneoDTO;
 import com.example.torneos.enums.TipoPremio;
 import com.example.torneos.service.PremioService;
 import jakarta.validation.Valid;
