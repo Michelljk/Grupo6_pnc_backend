@@ -82,6 +82,7 @@ La estructura principal del proyecto es la siguiente:
 ```
 proyecto_pnc/
 └── torneos/
+     ├── documentacion/        # 📄 Colección de Postman, entorno y reporte PDF
     ├── src/
     │   ├── main/
     │   │   ├── java/com/example/torneos/
