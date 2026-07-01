@@ -1,8 +1,8 @@
 package com.example.torneos.service;
 
-import com.example.torneos.dto.ComprarCreditosRequest;
-import com.example.torneos.dto.CrearPagoRequest;
-import com.example.torneos.dto.PagoResponse;
+import com.example.torneos.dto.request.ComprarCreditosRequest;
+import com.example.torneos.dto.request.CrearPagoRequest;
+import com.example.torneos.dto.response.PagoResponse;
 import com.example.torneos.entity.Pago;
 import com.example.torneos.entity.Torneo;
 import com.example.torneos.entity.Usuario;

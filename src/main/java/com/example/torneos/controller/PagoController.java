@@ -1,8 +1,9 @@
 package com.example.torneos.controller;
 
-import com.example.torneos.dto.ComprarCreditosRequest;
-import com.example.torneos.dto.CrearPagoRequest;
-import com.example.torneos.dto.PagoResponse;
+import com.example.torneos.dto.request.ComprarCreditosRequest;
+import com.example.torneos.dto.request.CrearPagoRequest;
+import com.example.torneos.dto.response.PagoResponse;
+import com.example.torneos.dto.GeneralResponse;
 import com.example.torneos.entity.WebhookStripe;
 import com.example.torneos.repository.WebhookStripeRepository;
 import com.example.torneos.service.PagoService;
@@ -30,28 +31,43 @@ public class PagoController {
     private final WebhookStripeRepository webhookStripeRepository;
 
     @PostMapping("/crear-intento")
-    public ResponseEntity<PagoResponse> crearIntento(@Valid @RequestBody CrearPagoRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(pagoService.crearIntentoPago(request));
+    public ResponseEntity<GeneralResponse> crearIntento(@Valid @RequestBody CrearPagoRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(GeneralResponse.builder()
+                .data(pagoService.crearIntentoPago(request))
+                .message("Intento de pago creado")
+                .build());
     }
 
     @PostMapping("/comprar-creditos")
-    public ResponseEntity<PagoResponse> comprarCreditos(@Valid @RequestBody ComprarCreditosRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(pagoService.crearPagoCreditos(request));
+    public ResponseEntity<GeneralResponse> comprarCreditos(@Valid @RequestBody ComprarCreditosRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(GeneralResponse.builder()
+                .data(pagoService.crearPagoCreditos(request))
+                .message("Compra de créditos iniciada")
+                .build());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PagoResponse> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(pagoService.buscarPorId(id));
+    public ResponseEntity<GeneralResponse> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(GeneralResponse.builder()
+                .data(pagoService.buscarPorId(id))
+                .message("Pago encontrado")
+                .build());
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<PagoResponse>> listarPorUsuario(@PathVariable Long usuarioId) {
-        return ResponseEntity.ok(pagoService.listarPorUsuario(usuarioId));
+    public ResponseEntity<GeneralResponse> listarPorUsuario(@PathVariable Long usuarioId) {
+        return ResponseEntity.ok(GeneralResponse.builder()
+                .data(pagoService.listarPorUsuario(usuarioId))
+                .message("Listado de pagos del usuario")
+                .build());
     }
 
     @GetMapping("/verificar-acceso")
-    public ResponseEntity<Boolean> verificarAcceso(@RequestParam Long usuarioId, @RequestParam Long torneoId) {
-        return ResponseEntity.ok(pagoService.tienePagoCompletado(usuarioId, torneoId));
+    public ResponseEntity<GeneralResponse> verificarAcceso(@RequestParam Long usuarioId, @RequestParam Long torneoId) {
+        return ResponseEntity.ok(GeneralResponse.builder()
+                .data(pagoService.tienePagoCompletado(usuarioId, torneoId))
+                .message("Estado de acceso verificado")
+                .build());
     }
 
     @PostMapping("/webhook")

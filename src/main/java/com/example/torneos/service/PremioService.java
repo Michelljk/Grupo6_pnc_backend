@@ -1,8 +1,8 @@
 package com.example.torneos.service;
 
-import com.example.torneos.dto.AsignarGanadorRequest;
-import com.example.torneos.dto.PremioDTO;
-import com.example.torneos.dto.PremioTorneoDTO;
+import com.example.torneos.dto.request.AsignarGanadorRequest;
+import com.example.torneos.dto.request.PremioDTO;
+import com.example.torneos.dto.request.PremioTorneoDTO;
 import com.example.torneos.entity.Premio;
 import com.example.torneos.entity.PremioTorneo;
 import com.example.torneos.entity.Torneo;

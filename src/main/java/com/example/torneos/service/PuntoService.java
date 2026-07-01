@@ -1,7 +1,7 @@
 package com.example.torneos.service;
 
-import com.example.torneos.dto.PuntoJugadorDTO;
-import com.example.torneos.dto.RankingDTO;
+import com.example.torneos.dto.request.PuntoJugadorDTO;
+import com.example.torneos.dto.request.RankingDTO;
 import com.example.torneos.entity.PuntoJugador;
 import com.example.torneos.entity.Torneo;
 import com.example.torneos.entity.Usuario;

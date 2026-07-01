@@ -1,4 +1,4 @@
-package com.example.torneos.dto;
+package com.example.torneos.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
