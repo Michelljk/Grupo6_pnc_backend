@@ -1,0 +1,32 @@
+﻿spring:
+  application:
+    name: torneos
+  profiles:
+    active: local
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: jdbc:postgresql://dpg-d8et8jho3t8c73fr92ng-a.oregon-postgres.render.com:5432/torneos_db_jdnq
+    username: torneos_db_jdnq_user
+    password: bEpj9KUxxwAXOF9WuJxtZ032n4561GwF
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+stripe:
+  api-key: ${SECRET_KEY}
+  webhook-secret: ${STRIPE_WEBHOOK_SECRET:whsec_placeholder}
+
+server:
+  port: 8080
+
+jwt:
+  secret: 4f6a8b1c2d9e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8
+  expiration: 8600000
