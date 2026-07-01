@@ -33,7 +33,13 @@ public class RoundRobinStrategy implements FormatoStrategy {
 
         int n = participantes.size();
         int numRondas = (n % 2 == 0) ? n - 1 : n;
-        int partidosPorRonda = n / 2;
+
+        // Crear lista de participantes para rotacion (agregar bye si es numero impar)
+        List<Usuario> rotacion = new ArrayList<>(participantes);
+        if (n % 2 == 1) {
+            rotacion.add(null); // null representa un bye
+            n = rotacion.size();
+        }
 
         for (int r = 1; r <= numRondas; r++) {
             Ronda ronda = Ronda.builder()
@@ -44,18 +50,30 @@ public class RoundRobinStrategy implements FormatoStrategy {
                     .enfrentamientos(new ArrayList<>())
                     .build();
 
+            // Generar emparejamientos para esta ronda
+            for (int i = 0; i < n / 2; i++) {
+                Usuario p1 = rotacion.get(i);
+                Usuario p2 = rotacion.get(n - 1 - i);
 
-            for (int i = 0; i < partidosPorRonda; i++) {
-                Enfrentamiento enfrentamiento = Enfrentamiento.builder()
-                        .ronda(ronda)
-                        .participante1(participantes.get(i))
-                        .participante2(participantes.get(n - 1 - i))
-                        .estado(EstadoEnfrentamiento.PROGRAMADO)
-                        .build();
-                ronda.getEnfrentamientos().add(enfrentamiento);
+                // Solo crear enfrentamiento si ambos participantes existen (no hay bye)
+                if (p1 != null && p2 != null) {
+                    Enfrentamiento enfrentamiento = Enfrentamiento.builder()
+                            .ronda(ronda)
+                            .participante1(p1)
+                            .participante2(p2)
+                            .estado(EstadoEnfrentamiento.PROGRAMADO)
+                            .build();
+                    ronda.getEnfrentamientos().add(enfrentamiento);
+                }
             }
 
             bracket.getRondas().add(ronda);
+
+            // Rotar participantes para la siguiente ronda (mantener el primero fijo)
+            if (r < numRondas) {
+                Usuario ultimo = rotacion.remove(n - 1);
+                rotacion.add(1, ultimo);
+            }
         }
 
         return bracket;
@@ -63,6 +81,30 @@ public class RoundRobinStrategy implements FormatoStrategy {
 
     @Override
     public void avanzarRonda(Bracket bracket) {
-        
+        List<Ronda> rondas = bracket.getRondas();
+        boolean todasRondasFinalizadas = true;
+
+        for (int i = 0; i < rondas.size(); i++) {
+            Ronda rondaActual = rondas.get(i);
+            if (rondaActual.getEstado() == EstadoRonda.EN_PROCESO) {
+                boolean todosFinalizados = rondaActual.getEnfrentamientos().stream()
+                        .allMatch(e -> e.getEstado() == EstadoEnfrentamiento.FINALIZADO);
+                if (todosFinalizados) {
+                    rondaActual.setEstado(EstadoRonda.FINALIZADO);
+                    if (i + 1 < rondas.size()) {
+                        rondas.get(i + 1).setEstado(EstadoRonda.EN_PROCESO);
+                    }
+                } else {
+                    todasRondasFinalizadas = false;
+                }
+            } else if (rondaActual.getEstado() == EstadoRonda.PENDIENTE) {
+                todasRondasFinalizadas = false;
+            }
+        }
+
+        if (todasRondasFinalizadas) {
+            bracket.setEstado(EstadoBracket.FINALIZADO);
+            bracket.getTorneo().setEstado(com.example.torneos.enums.EstadoTorneo.FINALIZADO);
+        }
     }
 }

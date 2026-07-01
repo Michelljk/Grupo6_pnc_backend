@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class EstrategiaFormatoConfig {
+public class StrategyFormatConfig {
 
     @Bean
     public Map<FormatoTorneo, FormatoStrategy> formatoStrategies(

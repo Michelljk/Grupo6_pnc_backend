@@ -92,6 +92,47 @@ public class EliminatoriaSimpleStrategy implements FormatoStrategy {
 
     @Override
     public void avanzarRonda(Bracket bracket) {
-        // TODO: Implementar lógica para mover ganadores a la siguiente ronda
+        List<Ronda> rondas = bracket.getRondas();
+        for (int i = 0; i < rondas.size() - 1; i++) {
+            Ronda rondaActual = rondas.get(i);
+            Ronda rondaSiguiente = rondas.get(i + 1);
+
+            if (rondaActual.getEstado() == EstadoRonda.EN_PROCESO) {
+                boolean todosFinalizados = rondaActual.getEnfrentamientos().stream()
+                        .allMatch(e -> e.getEstado() == EstadoEnfrentamiento.FINALIZADO);
+
+                if (todosFinalizados) {
+                    // Mover ganadores
+                    for (int j = 0; j < rondaActual.getEnfrentamientos().size(); j += 2) {
+                        Enfrentamiento e1 = rondaActual.getEnfrentamientos().get(j);
+                        Enfrentamiento e2 = (j + 1 < rondaActual.getEnfrentamientos().size()) ? rondaActual.getEnfrentamientos().get(j + 1) : null;
+
+                        int matchIndexSiguiente = j / 2;
+                        if (matchIndexSiguiente < rondaSiguiente.getEnfrentamientos().size()) {
+                            Enfrentamiento siguienteMatch = rondaSiguiente.getEnfrentamientos().get(matchIndexSiguiente);
+                            siguienteMatch.setParticipante1(e1.getGanador());
+                            if (e2 != null) {
+                                siguienteMatch.setParticipante2(e2.getGanador());
+                            }
+                        }
+                    }
+                    rondaActual.setEstado(EstadoRonda.FINALIZADO);
+                    rondaSiguiente.setEstado(EstadoRonda.EN_PROCESO);
+                    break;
+                }
+            }
+        }
+
+        // Verificar si el torneo terminó
+        Ronda ultimaRonda = rondas.get(rondas.size() - 1);
+        if (ultimaRonda.getEstado() == EstadoRonda.EN_PROCESO) {
+            boolean finalizado = ultimaRonda.getEnfrentamientos().stream()
+                    .allMatch(e -> e.getEstado() == EstadoEnfrentamiento.FINALIZADO);
+            if (finalizado) {
+                ultimaRonda.setEstado(EstadoRonda.FINALIZADO);
+                bracket.setEstado(EstadoBracket.FINALIZADO);
+                bracket.getTorneo().setEstado(com.example.torneos.enums.EstadoTorneo.FINALIZADO);
+            }
+        }
     }
 }

@@ -53,4 +53,24 @@ public class BracketService {
         strategy.avanzarRonda(bracket);
         bracketRepository.save(bracket);
     }
+
+    @Transactional
+    public void avanzarBracketSiEsPosible(Long bracketId) {
+        try {
+            Bracket bracket = bracketRepository.findById(bracketId)
+                    .orElseThrow(() -> new IllegalArgumentException("Bracket no encontrado con ID: " + bracketId));
+
+            FormatoStrategy strategy = formatStrategies.get(bracket.getTorneo().getFormato());
+
+            if (strategy == null) {
+                throw new UnsupportedOperationException("No hay estrategia para el formato " + bracket.getTorneo().getFormato());
+            }
+
+            strategy.avanzarRonda(bracket);
+            bracketRepository.save(bracket);
+        } catch (Exception e) {
+            // Metodo no critico, puede fallar silenciosamente
+            System.err.println("Error al avanzar el bracket: " + e.getMessage());
+        }
+    }
 }
